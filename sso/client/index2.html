@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tic-tac-toe</title>
+
+    
+    <style>
+        nav{ background-color: black;
+    color: aliceblue; display: flex;
+         align-items: center;
+         justify-content: center; height: 7vh;
+}
+
+nav p{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+#a,#c,#d{
+    border-top: none;
+}
+#b,#e,#f{
+    border-bottom: none;
+}
+*{ 
+    margin: 0; padding: 0;
+}
+.container{ margin-top: 10vh;
+     background-color: rgb(236, 239, 239);
+    display: grid; 
+    
+    grid-template-columns: repeat(3,22vh);
+    grid-template-rows: repeat(3,22vh);  
+    justify-content: center; align-items: center;
+}
+
+
+.box{  padding: 1vh;
+    border: 0.1vh solid;
+    height: 20vh;
+  
+    display: flex;
+      align-items: center; justify-content: center;
+}
+.main{
+    display:flex; justify-content: center;
+    
+}
+
+.box:hover{
+    background-color: rgb(164, 215, 215);
+    cursor: pointer;
+}
+
+button{ cursor: pointer;
+    width: 10vh;
+    height: 5vh;
+}
+    </style>
+</head>
+<body>
+    <nav>
+        <p>
+            my tic-tac-toe game
+        </p>
+      
+    </nav>
+
+     <div class="main">
+
+<div class="container">
+
+    <div class="box" id="a"> </div>
+    <div class="box" id="c"> </div>
+    <div class="box" id="d"> </div>
+    <div class="box" id="4"> </div>
+    <div class="box" id="5"> </div>
+    <div class="box" id="6"> </div>
+    <div class="box" id="b"> </div>
+    <div class="box" id="e"> </div>
+    <div class="box" id="f"> </div>
+
+</div>
+
+<div class="info"> 
+    
+    <button type="reset">RESET</button>
+   
+    <p class="winner">  </p>
+
+</div>
+     </div>
+   
+<script>let turn = "X";
+    let sound = new Audio("Ting Sound .mp3");
+    let error = new Audio("Windows error.mp3");
+    let win = new Audio("win sound.mp3");
+    let arr = [
+        [1, 2, 3],
+        [1, 4, 7],
+        [1, 5, 9],
+        [2, 5, 8],
+        [3, 6, 9],
+        [3, 5, 7],
+        [4, 5, 6],
+        [7, 8, 9],
+    ];
+
+    function changeturn() {
+        if (turn == "X") turn = "O";
+        else {
+            turn = "X";
+        }
+    }
+
+    let boxes = Array.from(document.getElementsByClassName("box"));
+    console.log(boxes);
+    function checkwin() {
+        for (let i = 0; i < 9; i++) {
+            if (
+                boxes[arr[i][0] - 1].innerHTML == boxes[arr[i][1] - 1].innerHTML &&
+                boxes[arr[i][1] - 1].innerHTML == boxes[arr[i][2] - 1].innerHTML &&
+                boxes[arr[i][2] - 1].innerHTML != " "
+            ) {
+                win.play();
+                window.alert("winner found click on reset button to restart");
+            }
+        }
+    }
+    console.log(boxes);
+    boxes.forEach((element) => {
+        //  element.addEventListner("click", ()=> console.log("e"))
+        element.addEventListener("click", () => {
+            if (element.innerHTML == " ") {
+                element.innerHTML = turn;
+                sound.play();
+                changeturn();
+                checkwin();
+            } else {
+                 error.play();
+            }
+        });
+    });
+
+    let butt = document.querySelector("button");
+    butt.addEventListener("click", () => {
+        boxes.forEach((ele) => {
+            ele.innerHTML = " ";
+        });
+    });
+</script>
+ 
+</body>
+</html>
